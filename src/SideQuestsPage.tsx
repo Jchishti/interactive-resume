@@ -1,5 +1,4 @@
 // File: src/SideQuests.tsx
-import * as React from 'react';
 import { sideQuests } from './sideQuestsData';
 import { motion } from 'framer-motion';
 
