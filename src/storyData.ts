@@ -4,7 +4,7 @@ export const storyChapters = [
     {
       id: 'prologue',
       title: 'Prologue',
-      text: `During the fall term of my senior year at Oregon State, I interviewed with a company based in Colorado. I did so well, they said they wanted to fly me out to the office and interview with the team. My not-quite-fully-developed-22-year-old brain didn't really want to live in Colorado. I wanted to live in California after I graduated. So, I gave them a "Thanks, but no thanks." It was 2009.`,
+      text: `During the fall term of my senior year at Oregon State, I interviewed with a company based in Colorado. I did so well, they said they wanted to fly me out to the office and interview with the team. My not-quite-fully-developed-22-year-old brain didn't really want to live in Colorado. I wanted to live in California after I graduated. So, I gave them a "Thanks, but no thanks." I thought if it was that easy to get a job, I wouldn't have any problems by graduation. It was 2009.`,
       image: ''
     },
     {
