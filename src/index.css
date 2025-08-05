@@ -1,3 +1,212 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animated Stripes Background */
+.animated-stripes-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.stripe {
+  position: absolute;
+  width: 150vw;
+  height: 60px;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+/* Cyan stripes */
+.stripe-cyan {
+  background: linear-gradient(90deg, transparent 0%, #00FFFF 20%, #00FFFF 80%, transparent 100%);
+}
+
+/* Magenta stripes */
+.stripe-magenta {
+  background: linear-gradient(90deg, transparent 0%, #FF00FF 20%, #FF00FF 80%, transparent 100%);
+}
+
+/* Yellow stripes */
+.stripe-yellow {
+  background: linear-gradient(90deg, transparent 0%, #FFFF00 20%, #FFFF00 80%, transparent 100%);
+}
+
+/* Animation keyframes */
+@keyframes stripe1 {
+  0% {
+    transform: rotate(15deg) translateY(-50px) translateX(-150vw);
+  }
+  50% {
+    transform: rotate(15deg) translateY(300px) translateX(0vw);
+  }
+  100% {
+    transform: rotate(15deg) translateY(-50px) translateX(150vw);
+  }
+}
+
+@keyframes stripe2 {
+  0% {
+    transform: rotate(-20deg) translateY(100px) translateX(150vw);
+  }
+  50% {
+    transform: rotate(-20deg) translateY(400px) translateX(-25vw);
+  }
+  100% {
+    transform: rotate(-20deg) translateY(100px) translateX(-150vw);
+  }
+}
+
+@keyframes stripe3 {
+  0% {
+    transform: rotate(25deg) translateY(200px) translateX(-75vw);
+  }
+  50% {
+    transform: rotate(25deg) translateY(500px) translateX(75vw);
+  }
+  100% {
+    transform: rotate(25deg) translateY(200px) translateX(-75vw);
+  }
+}
+
+@keyframes stripe4 {
+  0% {
+    transform: rotate(-30deg) translateY(350px) translateX(100vw);
+  }
+  50% {
+    transform: rotate(-30deg) translateY(150px) translateX(-50vw);
+  }
+  100% {
+    transform: rotate(-30deg) translateY(350px) translateX(100vw);
+  }
+}
+
+@keyframes stripe5 {
+  0% {
+    transform: rotate(35deg) translateY(450px) translateX(-100vw);
+  }
+  50% {
+    transform: rotate(35deg) translateY(250px) translateX(100vw);
+  }
+  100% {
+    transform: rotate(35deg) translateY(450px) translateX(-100vw);
+  }
+}
+
+@keyframes stripe6 {
+  0% {
+    transform: rotate(-40deg) translateY(550px) translateX(75vw);
+  }
+  50% {
+    transform: rotate(-40deg) translateY(100px) translateX(-75vw);
+  }
+  100% {
+    transform: rotate(-40deg) translateY(550px) translateX(75vw);
+  }
+}
+
+/* Apply animations to specific stripes */
+.stripe-1 {
+  animation: stripe1 12s ease-in-out infinite;
+}
+
+.stripe-2 {
+  animation: stripe2 15s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.stripe-3 {
+  animation: stripe3 18s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.stripe-4 {
+  animation: stripe4 14s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+.stripe-5 {
+  animation: stripe5 16s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+.stripe-6 {
+  animation: stripe6 13s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+/* Button styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.btn-cyan {
+  background-color: rgba(0, 255, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.btn-magenta {
+  background-color: rgba(255, 0, 255, 0.8);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.btn-yellow {
+  background-color: rgba(255, 255, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px currentColor;
+  mix-blend-mode: screen;
+}
+
+.btn-cyan:hover {
+  background-color: rgba(0, 255, 255, 1);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+}
+
+.btn-magenta:hover {
+  background-color: rgba(255, 0, 255, 1);
+  box-shadow: 0 0 40px rgba(255, 0, 255, 0.6);
+}
+
+.btn-yellow:hover {
+  background-color: rgba(255, 255, 0, 1);
+  box-shadow: 0 0 40px rgba(255, 255, 0, 0.6);
+}
+
+/* Button ripple effect */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
