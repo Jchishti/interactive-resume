@@ -374,50 +374,65 @@
 }
 
 .apple-job-card {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: #f9f9fb;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .apple-job-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .apple-job-title {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 600;
     color: #1e1e1e;
+    margin-bottom: 0.25rem;
 }
 
 .apple-job-meta {
-    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .apple-job-company {
     font-weight: 600;
     color: #007aff;
+    font-size: 0.95rem;
 }
 
 .apple-job-period {
     color: #8e8e93;
+    font-size: 0.875rem;
+}
+
+.apple-job-period::before {
+    content: "•";
+    margin-right: 0.5rem;
+    color: #d1d5db;
 }
 
 .apple-job-note {
     font-size: 0.875rem;
-    color: #8e8e93;
-    margin-bottom: 0.75rem;
+    color: #9ca3af;
+    font-style: italic;
+    margin-bottom: 1rem;
 }
 
 .apple-job-list {
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     list-style-type: disc;
     color: #1e1e1e;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .apple-job-list li {
     margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }
 
 /* Responsive Design */
