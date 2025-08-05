@@ -215,108 +215,231 @@
 .apple-header {
   position: relative;
   min-height: 320px;
-  background-color: #f5f5f7;
-  overflow: hidden;
+    background-color: #f5f5f7;
+    overflow: hidden;
 }
 
 .apple-bg-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, #ffffff 0%, #f5f5f7 100%);
-  opacity: 0.9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #ffffff 0%, #f5f5f7 100%);
+    opacity: 0.9;
 }
 
 .apple-mesh-gradient {
-  position: absolute;
-  border-radius: 50%;
-  mix-blend-mode: overlay;
-  opacity: 0.4;
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: overlay;
+    opacity: 0.4;
 }
 
 .apple-mesh-1 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 100%);
-  top: -50px;
-  left: 20%;
-  animation: meshMove1 15s ease-in-out infinite;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 100%);
+    top: -50px;
+    left: 20%;
+    animation: meshMove1 15s ease-in-out infinite;
 }
 
 .apple-mesh-2 {
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 100%);
-  top: 50px;
-  right: 15%;
-  animation: meshMove2 20s ease-in-out infinite;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 100%);
+    top: 50px;
+    right: 15%;
+    animation: meshMove2 20s ease-in-out infinite;
 }
 
 .apple-content {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px;
-  text-align: center;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 .apple-title-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .apple-name {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #1e1e1e;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1e1e1e;
 }
 
 .apple-title-line {
-  width: 50px;
-  height: 4px;
-  background-color: #c1c1c1;
-  margin-top: 8px;
-  border-radius: 2px;
+    width: 50px;
+    height: 4px;
+    background-color: #c1c1c1;
+    margin-top: 8px;
+    border-radius: 2px;
 }
 
 .apple-subtitle {
-  font-size: 1.25rem;
-  color: #3d3d3d;
-  margin: 12px 0;
+    font-size: 1.25rem;
+    color: #3d3d3d;
+    margin: 12px 0;
 }
 
 .apple-tags {
-  display: flex;
-  gap: 6px;
+    display: flex;
+    gap: 6px;
 }
 
 .apple-tag {
-  display: inline-block;
-  padding: 5px 10px;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 30px;
-  font-size: 0.875rem;
-  color: #1e1e1e;
-  backdrop-filter: blur(4px);
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    font-size: 0.875rem;
+    color: #1e1e1e;
+    backdrop-filter: blur(4px);
 }
 
 /* Mesh movement animations */
 @keyframes meshMove1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-25px, 30px) scale(1.1); }
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-25px, 30px) scale(1.1); }
 }
 
 @keyframes meshMove2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -25px) scale(0.9); }
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -25px) scale(0.9); }
+}
+
+/* Apple Section Styles */
+.apple-section {
+    padding: 3rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.apple-section:last-of-type {
+    border-bottom: none;
+}
+
+.apple-section-content {
+    margin-bottom: 2rem;
+}
+
+.apple-section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.apple-section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+.apple-section-line {
+    width: 60px;
+    height: 4px;
+    background-color: #007aff;
+    margin: 0.5rem auto;
+    border-radius: 2px;
+}
+
+.apple-section-body {
+    font-size: 1rem;
+    color: #1e1e1e;
+    line-height: 1.6;
+}
+
+.apple-quote {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-left: 4px solid #007aff;
+    padding: 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 2rem;
+}
+
+.apple-quote-content {
+    font-style: italic;
+    color: #1e1e1e;
+}
+
+.apple-job-card {
+    margin-bottom: 2rem;
+}
+
+.apple-job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.apple-job-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1e1e1e;
+}
+
+.apple-job-meta {
+    font-size: 0.875rem;
+}
+
+.apple-job-company {
+    font-weight: 600;
+    color: #007aff;
+}
+
+.apple-job-period {
+    color: #8e8e93;
+}
+
+.apple-job-note {
+    font-size: 0.875rem;
+    color: #8e8e93;
+    margin-bottom: 0.75rem;
+}
+
+.apple-job-list {
+    padding-left: 1.25rem;
+    list-style-type: disc;
+    color: #1e1e1e;
+    line-height: 1.5;
+}
+
+.apple-job-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .apple-name {
+        font-size: 2.5rem;
+    }
+    
+    .apple-section {
+        padding: 2rem 1rem;
+    }
+    
+    .apple-job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .apple-tags {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 /* Apple Document Styling */

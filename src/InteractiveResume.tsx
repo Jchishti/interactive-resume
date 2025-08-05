@@ -42,22 +42,31 @@ const voiceovers = [
 ];
 
 const Section = ({ id, title, children }: SectionProps) => (
-  <section id={id} className="py-12 px-6 md:px-20 max-w-5xl mx-auto">
-    <h2 className="text-3xl font-bold mb-4">{title}</h2>
-    {children}
-    {voiceovers
-      .filter((v) => v.section === id)
-      .map((v, idx) => (
-        <motion.blockquote
-          key={idx}
-          className="bg-slate-100 text-slate-700 italic p-4 mt-6 rounded-xl shadow"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          “{v.quote}”
-        </motion.blockquote>
-      ))}
+  <section id={id} className="apple-section">
+    <div className="apple-section-content">
+      <div className="apple-section-header">
+        <h2 className="apple-section-title">{title}</h2>
+        <div className="apple-section-line"></div>
+      </div>
+      <div className="apple-section-body">
+        {children}
+      </div>
+      {voiceovers
+        .filter((v) => v.section === id)
+        .map((v, idx) => (
+          <motion.div
+            key={idx}
+            className="apple-quote"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="apple-quote-content">
+              "{v.quote}"
+            </div>
+          </motion.div>
+        ))}
+    </div>
   </section>
 );
 
@@ -129,31 +138,51 @@ export default function InteractiveResume() {
       </Section>
 
       <Section id="powin" title="Professional Experience">
-        <h3 className="font-bold text-xl mt-4">
-          Powin Energy — DevOps and QA Engineer, Sr (July 2025 – Present)
-        </h3>
-        <p className="text-sm text-gray-600 mb-2">Previously: Quality Engineer (2024 – July 2025)</p>
-        <ul className="list-disc list-inside">
-          <li>Built state-based Postman tests for HVAC platform validation</li>
-          <li>Automated segmented lab routing, SSH config, and deployments</li>
-          <li>Created custom Python tools to manage Docker & YAML-based configurations</li>
-        </ul>
+        <div className="apple-job-card">
+          <div className="apple-job-header">
+            <h3 className="apple-job-title">DevOps and QA Engineer, Sr</h3>
+            <div className="apple-job-meta">
+              <span className="apple-job-company">Powin Energy</span>
+              <span className="apple-job-period">July 2025 – Present</span>
+            </div>
+            <p className="apple-job-note">Previously: Quality Engineer (2024 – July 2025)</p>
+          </div>
+          <ul className="apple-job-list">
+            <li>Built state-based Postman tests for HVAC platform validation</li>
+            <li>Automated segmented lab routing, SSH config, and deployments</li>
+            <li>Created custom Python tools to manage Docker & YAML-based configurations</li>
+          </ul>
+        </div>
 
-        <h3 className="font-bold text-xl mt-6">Siemens DISW — QA Lead (2020 – 2024)</h3>
-        <ul className="list-disc list-inside">
-          <li>Directed QA across global teams for high-traffic marketing platforms</li>
-          <li>Reduced regression from 18 hours to 2 with BrowserStack automation</li>
-          <li>Integrated QA into sprint workflows and built stakeholder trust</li>
-        </ul>
+        <div className="apple-job-card">
+          <div className="apple-job-header">
+            <h3 className="apple-job-title">QA Lead</h3>
+            <div className="apple-job-meta">
+              <span className="apple-job-company">Siemens DISW</span>
+              <span className="apple-job-period">2020 – 2024</span>
+            </div>
+          </div>
+          <ul className="apple-job-list">
+            <li>Directed QA across global teams for high-traffic marketing platforms</li>
+            <li>Reduced regression from 18 hours to 2 with BrowserStack automation</li>
+            <li>Integrated QA into sprint workflows and built stakeholder trust</li>
+          </ul>
+        </div>
 
-        <h3 className="font-bold text-xl mt-6">
-          WebMD Health Services — Sr. QA Analyst (2011 – 2020)
-        </h3>
-        <ul className="list-disc list-inside">
-          <li>Led QA for major client implementations and wellness platforms</li>
-          <li>Developed automation to reduce testing time by 16x</li>
-          <li>Built internal tooling for test data creation and import</li>
-        </ul>
+        <div className="apple-job-card">
+          <div className="apple-job-header">
+            <h3 className="apple-job-title">Sr. QA Analyst</h3>
+            <div className="apple-job-meta">
+              <span className="apple-job-company">WebMD Health Services</span>
+              <span className="apple-job-period">2011 – 2020</span>
+            </div>
+          </div>
+          <ul className="apple-job-list">
+            <li>Led QA for major client implementations and wellness platforms</li>
+            <li>Developed automation to reduce testing time by 16x</li>
+            <li>Built internal tooling for test data creation and import</li>
+          </ul>
+        </div>
       </Section>
 
       <Section id="tools" title="Personal Projects (In the Works)">
