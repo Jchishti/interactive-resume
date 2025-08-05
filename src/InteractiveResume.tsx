@@ -70,7 +70,7 @@ export default function InteractiveResume() {
     <main className="bg-white text-gray-900 font-sans">
       <div className="text-center py-10 bg-gradient-to-b from-slate-800 to-slate-600 text-white">
         <h1 className="text-5xl font-extrabold">Jamal Chishti</h1>
-        <p className="text-lg mt-2">QA Engineer • Toolsmith • System Debugger • Storyteller</p>
+        <p className="text-lg mt-2">Sr. DevOps & QA Engineer • Toolsmith • System Debugger • Storyteller</p>
       </div>
 
       <Section id="intro" title="Professional Summary">
@@ -114,8 +114,9 @@ export default function InteractiveResume() {
 
       <Section id="powin" title="Professional Experience">
         <h3 className="font-bold text-xl mt-4">
-          Powin Energy — Quality Engineer (2024 – Present)
+          Powin Energy — DevOps and QA Engineer, Sr (July 2025 – Present)
         </h3>
+        <p className="text-sm text-gray-600 mb-2">Previously: Quality Engineer (2024 – July 2025)</p>
         <ul className="list-disc list-inside">
           <li>Built state-based Postman tests for HVAC platform validation</li>
           <li>Automated segmented lab routing, SSH config, and deployments</li>
