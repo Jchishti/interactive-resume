@@ -68,9 +68,19 @@ export default function InteractiveResume() {
 
   return (
     <main className="bg-white text-gray-900 font-sans">
-      <div className="text-center py-10 bg-gradient-to-b from-slate-800 to-slate-600 text-white">
-        <h1 className="text-5xl font-extrabold">Jamal Chishti</h1>
-        <p className="text-lg mt-2">Sr. DevOps & QA Engineer • Toolsmith • System Debugger • Storyteller</p>
+      <div className="resume-header text-center py-16 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="resume-color-orb resume-orb-1"></div>
+        <div className="resume-color-orb resume-orb-2"></div>
+        <div className="resume-color-orb resume-orb-3"></div>
+        <div className="resume-color-orb resume-orb-4"></div>
+        <div className="resume-color-orb resume-orb-5"></div>
+        
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="text-6xl font-extrabold text-white mb-4 resume-title">Jamal Chishti</h1>
+          <p className="text-xl text-white/90">Sr. DevOps & QA Engineer • Toolsmith • System Debugger • Storyteller</p>
+        </div>
       </div>
 
       <Section id="intro" title="Professional Summary">
