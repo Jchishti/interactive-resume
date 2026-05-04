@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { timelineEntries } from '../timelineData';
-import type { JobEntry, ProjectEntry } from '../timelineData';
+import type { JobEntry, ProjectEntry, SectionDivider } from '../timelineData';
 
 // ─── Logo with initials fallback ────────────────────────────────────────────
 
@@ -66,7 +66,22 @@ function Chevron({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-// ─── Job node ────────────────────────────────────────────────────────────────
+// ─── Section divider ────────────────────────────────────────
+
+function DividerNode({ entry }: { entry: SectionDivider }) {
+  return (
+    <div className="relative pl-20 mt-4 mb-8">
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-300 whitespace-nowrap">
+          {entry.label}
+        </span>
+        <div className="flex-1 h-px bg-gray-100" />
+      </div>
+    </div>
+  );
+}
+
+// ─── Job node ───────────────────────────────────────────────
 
 function JobNode({
   entry,
@@ -77,18 +92,21 @@ function JobNode({
   isActive: boolean;
   onToggle: () => void;
 }) {
+  const dim = entry.dim ?? false;
+  // dim nodes: 40px circle (w-10), left-3 (12px) → center at 32px ✓, content at pl-16 (64px)
+  // full nodes: 48px circle (w-12), left-2 (8px)  → center at 32px ✓, content at pl-20 (80px)
   return (
-    <div className="relative pl-20 mb-12">
-      {/* Circle node on the rail — center at left: 8px + 24px radius = 32px = left-8 */}
+    <div className={`relative ${dim ? 'pl-16 mb-8' : 'pl-20 mb-12'}`}>
       <motion.button
         onClick={onToggle}
-        className="absolute left-2 top-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm focus:outline-none focus-visible:ring-2"
+        className={`absolute ${dim ? 'left-3 top-1 w-10 h-10' : 'left-2 top-0 w-12 h-12'} rounded-full bg-white flex items-center justify-center focus:outline-none focus-visible:ring-2 ${dim ? '' : 'shadow-sm'}`}
         style={{
           border: `2px solid ${isActive ? entry.accent : '#e5e7eb'}`,
+          opacity: dim ? 0.85 : 1,
         }}
         animate={{ borderColor: isActive ? entry.accent : '#e5e7eb' }}
         transition={{ duration: 0.2 }}
-        whileHover={{ scale: 1.06 }}
+        whileHover={{ scale: dim ? 1.04 : 1.06 }}
         whileTap={{ scale: 0.97 }}
         aria-expanded={isActive}
         aria-label={`${isActive ? 'Collapse' : 'Expand'} ${entry.company}`}
@@ -99,15 +117,15 @@ function JobNode({
       {/* Clickable header */}
       <button onClick={onToggle} className="w-full text-left group">
         <div className="flex items-center gap-2 flex-wrap leading-none">
-          <span className="text-[17px] font-semibold text-gray-900 group-hover:text-gray-600 transition-colors">
+          <span className={`${dim ? 'text-sm text-gray-500' : 'text-[17px] text-gray-900'} font-semibold group-hover:opacity-70 transition-opacity`}>
             {entry.company}
           </span>
-          <span className="text-xs font-mono text-gray-400">{entry.period}</span>
-          <span className="text-gray-400">
+          <span className="text-xs font-mono text-gray-300">{entry.period}</span>
+          <span className={dim ? 'text-gray-300' : 'text-gray-400'}>
             <Chevron isOpen={isActive} />
           </span>
         </div>
-        <div className="text-sm text-gray-500 mt-1">{entry.role}</div>
+        <div className={`${dim ? 'text-xs text-gray-400' : 'text-sm text-gray-500'} mt-1`}>{entry.role}</div>
       </button>
 
       {/* Expandable detail panel */}
@@ -299,23 +317,29 @@ export default function CareerTimeline() {
           }}
         />
 
-        {timelineEntries.map((entry) =>
-          entry.type === 'job' ? (
-            <JobNode
-              key={entry.id}
-              entry={entry}
-              isActive={activeId === entry.id}
-              onToggle={() => toggle(entry.id)}
-            />
-          ) : (
+        {timelineEntries.map((entry) => {
+          if (entry.type === 'divider') {
+            return <DividerNode key={entry.id} entry={entry} />;
+          }
+          if (entry.type === 'job') {
+            return (
+              <JobNode
+                key={entry.id}
+                entry={entry}
+                isActive={activeId === entry.id}
+                onToggle={() => toggle(entry.id)}
+              />
+            );
+          }
+          return (
             <ProjectNode
               key={entry.id}
               entry={entry}
               isActive={activeId === entry.id}
               onToggle={() => toggle(entry.id)}
             />
-          )
-        )}
+          );
+        })}
       </div>
     </div>
   );

@@ -13,6 +13,13 @@ export type JobEntry = {
   highlight?: string;
   bullets: string[];
   note?: string;
+  dim?: boolean;
+};
+
+export type SectionDivider = {
+  id: string;
+  type: 'divider';
+  label: string;
 };
 
 export type ProjectEntry = {
@@ -28,7 +35,7 @@ export type ProjectEntry = {
   endYear: number | null;
 };
 
-export type TimelineEntry = JobEntry | ProjectEntry;
+export type TimelineEntry = JobEntry | ProjectEntry | SectionDivider;
 
 export const timelineEntries: TimelineEntry[] = [
   {
@@ -114,6 +121,95 @@ export const timelineEntries: TimelineEntry[] = [
       'Developed automation tooling that reduced test execution time by 16×',
       'Built internal tools for test data creation, import pipelines, and environment validation',
       'Primary QA contact for client-facing delivery and UAT readiness across major releases',
+    ],
+  },
+  {
+    id: 'pre-career-divider',
+    type: 'divider',
+    label: 'Before the tech career',
+  },
+  {
+    id: 'bsg',
+    type: 'job',
+    company: 'The Business Solutions Group',
+    role: 'Business Analyst',
+    period: '2009 – 2010',
+    startYear: 2009,
+    endYear: 2010,
+    accent: '#64748b',
+    dim: true,
+    highlight: 'The job that started all of this',
+    bullets: [
+      'Translated client requirements into testing documentation for a software development team',
+      'Guaranteed code quality produced by programmers — this was QA before I knew what QA was',
+      'Bridged clients and developers across the full software delivery lifecycle',
+    ],
+  },
+  {
+    id: 'forest-service',
+    type: 'job',
+    company: 'U.S. Forest Service',
+    role: 'Wildland Firefighter',
+    period: 'Summer 2009',
+    startYear: 2009,
+    endYear: 2009,
+    accent: '#4d7c0f',
+    dim: true,
+    highlight: '70–100 hour weeks',
+    bullets: [
+      'Fought wildfires across extreme terrain with a 20-person crew for an entire summer',
+      'Hiked through brutal conditions carrying 45lbs of gear, day after day',
+      'Was asked to come back full-time. Knew one summer was enough.',
+    ],
+  },
+  {
+    id: 'steven-moore',
+    type: 'job',
+    company: 'M. Steven Moore Company',
+    role: 'Finance Intern',
+    period: 'Summer 2008',
+    startYear: 2008,
+    endYear: 2008,
+    accent: '#b45309',
+    dim: true,
+    highlight: 'Job title: Finance Intern. Actual job: IT.',
+    bullets: [
+      'Prevented business closures by troubleshooting hardware, reinstalling operating systems, and removing viruses',
+      'Configured networks and printers; fielded customer health and life insurance questions',
+      'Learned that “finance intern” can mean many things, most of them involving a screwdriver',
+    ],
+  },
+  {
+    id: 'ups',
+    type: 'job',
+    company: 'United Parcel Service',
+    role: 'Driver Helper',
+    period: '2007 – 2008',
+    startYear: 2007,
+    endYear: 2008,
+    logoUrl: 'https://logo.clearbit.com/ups.com',
+    accent: '#78350f',
+    dim: true,
+    highlight: 'Highest reviews of any driver helper in the Portland metro area',
+    bullets: [
+      'Delivered packages across Portland metro across two consecutive Christmas seasons',
+      'Kept pace with veteran drivers; received the top driver helper reviews in the region',
+    ],
+  },
+  {
+    id: 'hillsboro',
+    type: 'job',
+    company: 'City of Hillsboro Parks & Rec',
+    role: 'Utility Worker',
+    period: '2006 – 2007',
+    startYear: 2006,
+    endYear: 2007,
+    accent: '#6b7280',
+    dim: true,
+    highlight: '15% raise after 6 weeks',
+    bullets: [
+      'Streamlined daily maintenance operations across parks and recreation facilities',
+      'Received a 15% raise after 6 weeks on the job; returned for a second summer',
     ],
   },
 ];
