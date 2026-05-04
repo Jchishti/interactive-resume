@@ -14,6 +14,20 @@ export const storyChapters = [
       image: '/images/rotc-cadet.jpg'
     },
     {
+      id: 'mozambique',
+      title: 'The Flip Flops',
+      text: `September 2007. I went to Pemba, Mozambique for ten days with a short-term mission group. At the time, only Afghanistan ranked below it in global poverty. There was a tsunami warning while we were there.
+
+A few days in, I gave someone my flip flops. They said they needed them. I later figured out they'd probably sold them for food money. I don't blame them. I just hadn't thought it through.
+
+My Nikes made me conspicuous in ways that weren't helping anyone. The day I gave up and just walked around in socks, a kid — maybe 15, maybe 17 — approached me. Asked if I wanted flip flops. I said yes. He asked my size. I said twelve. He said, "Come back tomorrow."
+
+I came back the next day. He had them. I paid him and wore those flip flops for the next ten years.
+
+I went there thinking about what I could offer. I came back thinking about that kid.`,
+      image: ''
+    },
+    {
       id: 'wildfire-summer',
       title: 'The Wildfire Summer',
       text: `I was accepted. We hiked through extreme terrain with 45lbs of gear, did grueling physical labor, and repeated it for weeks. My leadership wanted me to become a firefighter full-time. I knew one summer was enough.`,

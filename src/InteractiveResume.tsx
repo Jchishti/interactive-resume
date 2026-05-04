@@ -1,95 +1,82 @@
-// File: src/App.tsx
+// File: src/InteractiveResume.tsx
 import { useEffect } from 'react';
-import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import CareerTimeline from './components/CareerTimeline';
 
-type SectionProps = {
-  id: string;
-  title: string;
-  children: ReactNode;
-};
-
-const voiceovers = [
+const rejections = [
   {
-    quote:
-      "For 16 years, I’ve owned quality across the stack—from simulating edge-case hardware behavior and debugging Linux systems to validating APIs and scaling test coverage across modern cloud apps.",
-    section: "intro",
+    company: 'Taco Time',
+    note: null,
+    era: 'college',
   },
   {
-    quote:
-      "I bring deep technical understanding, a tool builder’s mindset, and a drive to solve the problems no one else wants to touch.",
-    section: "hats",
+    company: 'Ferguson Plumbing',
+    note: null,
+    era: null,
   },
   {
-    quote:
-      "Whether it's scripting deployments, tracing system failures across layers, or aligning test strategies with real-world usage, I show up ready to dig in.",
-    section: "powin",
+    company: 'Sherwin Williams',
+    note: 'The interviewer needed to know if I was a business guy or a computer guy. I was both. This was somehow disqualifying.',
+    era: null,
   },
   {
-    quote: "If a tool doesn’t exist, I’ll build it.",
-    section: "tools",
+    company: 'Corvallis Police Department',
+    note: 'Failed the math test. Had passed applied differential equations.',
+    era: null,
   },
   {
-    quote:
-      "I’m comfortable tracing root causes through layers of configuration, container orchestration, networking, and Linux internals.",
-    section: "skills",
+    company: 'Gilbert, AZ Police Department',
+    note: 'Drove from Oregon in a \'91 Ford Probe with no AC in August. 500 applicants. 3 openings. Most were current or former law enforcement.',
+    era: null,
   },
   {
-    quote:
-      "I’d love to hear more about the challenges your team is working through and how I might help meet them with thoughtful, scalable, and resilient quality solutions.",
-    section: "closing",
+    company: 'Target Distribution',
+    note: '13 interviews. Hired an MBA. Continued interviewing candidates after the decision had already been made.',
+    era: null,
   },
 ];
 
-const Section = ({ id, title, children }: SectionProps) => (
-  <section id={id} className="apple-section">
-    <div className="apple-section-content">
-      <div className="apple-section-header">
-        <h2 className="apple-section-title">{title}</h2>
-        <div className="apple-section-line"></div>
-      </div>
-      <div className="apple-section-body">
-        {children}
-      </div>
-      {voiceovers
-        .filter((v) => v.section === id)
-        .map((v, idx) => (
-          <motion.div
-            key={idx}
-            className="apple-quote"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="apple-quote-content">
-              "{v.quote}"
-            </div>
-          </motion.div>
-        ))}
-    </div>
-  </section>
-);
+const skillGroups = [
+  {
+    label: 'Testing',
+    skills: ['Functional', 'Integration', 'End-to-End', 'Regression', 'API', 'Mobile', 'Performance'],
+  },
+  {
+    label: 'Automation',
+    skills: ['Pytest', 'Playwright', 'Selenium', 'Postman', 'BrowserStack', 'Appium'],
+  },
+  {
+    label: 'Infrastructure',
+    skills: ['Docker', 'Linux', 'AWS', 'SSH', 'iptables', 'Redis', 'YAML'],
+  },
+  {
+    label: 'Languages',
+    skills: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'Bash', 'Java'],
+  },
+  {
+    label: 'Platforms',
+    skills: ['iOS', 'macOS', 'iPadOS', 'Android', 'Chrome Extension', 'Windows'],
+  },
+];
 
 export default function InteractiveResume() {
   useEffect(() => {
-    document.title = 'Jamal Chishti | Interactive Resume';
+    document.title = 'Jamal Chishti | Career';
   }, []);
 
   return (
     <main className="bg-white text-gray-900 font-sans apple-document">
+
+      {/* ── Header ── */}
       <div className="apple-header">
-        {/* Subtle animated background */}
-        <div className="apple-bg-gradient"></div>
-        <div className="apple-mesh-gradient apple-mesh-1"></div>
-        <div className="apple-mesh-gradient apple-mesh-2"></div>
-        
-        {/* Content */}
+        <div className="apple-bg-gradient" />
+        <div className="apple-mesh-gradient apple-mesh-1" />
+        <div className="apple-mesh-gradient apple-mesh-2" />
         <div className="apple-content">
           <div className="apple-title-container">
             <h1 className="apple-name">Jamal Chishti</h1>
-            <div className="apple-title-line"></div>
+            <div className="apple-title-line" />
           </div>
-          <p className="apple-subtitle">Sr. DevOps & QA Engineer</p>
+          <p className="apple-subtitle">DevOps & QA Engineer</p>
           <div className="apple-tags">
             <span className="apple-tag">Toolsmith</span>
             <span className="apple-tag">System Debugger</span>
@@ -98,115 +85,88 @@ export default function InteractiveResume() {
         </div>
       </div>
 
-      <Section id="intro" title="Professional Summary">
-        <p>
-          Versatile QA engineer and systems troubleshooter with deep experience bridging software,
-          hardware, and infrastructure across complex, high-stakes environments. Hands-on and highly
-          collaborative, with a reputation for elevating quality standards, clarifying requirements,
-          and unblocking technical roadblocks.
-        </p>
-      </Section>
-
-      <Section id="skills" title="Technical Skills">
-        <ul className="list-disc list-inside">
-          <li>
-            <strong>Testing:</strong> Functional, Integration, End-to-End, Regression, Automation,
-            API, Mobile, Performance
-          </li>
-          <li>
-            <strong>Languages:</strong> Python, SQL, Java, Bash, PowerShell, C#, JavaScript
-          </li>
-          <li>
-            <strong>Tools:</strong> Postman, Selenium, Pytest, Docker, TestRail, AWS, Redis,
-            Bitbucket
-          </li>
-          <li>
-            <strong>Platforms:</strong> Windows, Linux, macOS, Android, iOS
-          </li>
-        </ul>
-      </Section>
-
-      <Section id="hats" title="Hats I’ve Worn (Without the Title)">
-        <ul className="list-disc list-inside">
-          <li>SDET – Built modular automation frameworks with Python and Postman</li>
-          <li>QA Manager – Led QA teams, ran retrospectives, ensured stakeholder alignment</li>
-          <li>DevOps Engineer – Managed Docker deployments and automated remote updates</li>
-          <li>Network Engineer – Solved complex routing and iptables issues in QA lab setups</li>
-          <li>Business Analyst – Translated ambiguous requirements into testable outcomes</li>
-          <li>Project Manager – Tracked delivery, timelines, and UAT readiness</li>
-        </ul>
-      </Section>
-
-      <Section id="powin" title="Professional Experience">
-        <div className="apple-job-card">
-          <div className="apple-job-header">
-            <h3 className="apple-job-title">DevOps and QA Engineer, Sr</h3>
-            <div className="apple-job-meta">
-              <span className="apple-job-company">Powin Energy</span>
-              <span className="apple-job-period">July 2025 – Present</span>
-            </div>
-            <p className="apple-job-note">Previously: Quality Engineer (2024 – July 2025)</p>
-          </div>
-          <ul className="apple-job-list">
-            <li>Built state-based Postman tests for HVAC platform validation</li>
-            <li>Automated segmented lab routing, SSH config, and deployments</li>
-            <li>Created custom Python tools to manage Docker & YAML-based configurations</li>
-          </ul>
+      {/* ── Intro ── */}
+      <div className="max-w-2xl mx-auto px-6 pt-14 pb-2 text-center">
+        <div className="text-gray-500 text-base leading-relaxed">
+          Sixteen years of building things, breaking things on purpose, and making sure the right
+          things ship. Click any node on the timeline to dig in.
         </div>
+      </div>
 
-        <div className="apple-job-card">
-          <div className="apple-job-header">
-            <h3 className="apple-job-title">QA Lead</h3>
-            <div className="apple-job-meta">
-              <span className="apple-job-company">Siemens DISW</span>
-              <span className="apple-job-period">2020 – 2024</span>
+      {/* ── Timeline ── */}
+      <div className="px-6">
+        <CareerTimeline />
+      </div>
+
+      {/* ── Skills ── */}
+      <div className="border-t border-gray-100 mt-4">
+        <div className="max-w-2xl mx-auto px-6 py-12">
+          <div className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
+            Tools of the trade
+          </div>
+          <div className="space-y-4">
+            {skillGroups.map((group) => (
+              <div key={group.label} className="flex gap-3 flex-wrap items-baseline">
+                <span className="text-xs font-semibold text-gray-400 w-24 shrink-0">
+                  {group.label}
+                </span>
+                <div className="flex gap-1.5 flex-wrap">
+                  {group.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-xs px-2.5 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-600"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-gray-100">
+            <div className="text-sm text-gray-500">
+              <strong className="text-gray-700">Oregon State University</strong>
+              {' — '}BS in Business Information Systems & Management
             </div>
           </div>
-          <ul className="apple-job-list">
-            <li>Directed QA across global teams for high-traffic marketing platforms</li>
-            <li>Reduced regression from 18 hours to 2 with BrowserStack automation</li>
-            <li>Integrated QA into sprint workflows and built stakeholder trust</li>
-          </ul>
         </div>
+      </div>
 
-        <div className="apple-job-card">
-          <div className="apple-job-header">
-            <h3 className="apple-job-title">Sr. QA Analyst</h3>
-            <div className="apple-job-meta">
-              <span className="apple-job-company">WebMD Health Services</span>
-              <span className="apple-job-period">2011 – 2020</span>
-            </div>
+      {/* ── Rejections ── */}
+      <div className="border-t border-gray-100">
+        <div className="max-w-2xl mx-auto px-6 py-12">
+          <div className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">
+            Also Interviewed At
           </div>
-          <ul className="apple-job-list">
-            <li>Led QA for major client implementations and wellness platforms</li>
-            <li>Developed automation to reduce testing time by 16x</li>
-            <li>Built internal tooling for test data creation and import</li>
-          </ul>
+          <div className="text-xs text-gray-300 mb-8">Did not get the job.</div>
+          <div className="space-y-5">
+            {rejections.map((r) => (
+              <div key={r.company}>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-gray-400 line-through decoration-gray-300">
+                    {r.company}
+                  </span>
+                  {r.era && (
+                    <span className="text-xs text-gray-300 italic">{r.era}</span>
+                  )}
+                </div>
+                {r.note && (
+                  <div className="text-xs text-gray-400 mt-0.5 leading-relaxed max-w-md">
+                    {r.note}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </Section>
+      </div>
 
-      <Section id="tools" title="Personal Projects (In the Works)">
-        <p>
-          Building an open-source test case management system that integrates with Jira, aligns
-          requirements with test coverage, and improves clarity across dev and QA.
-        </p>
-        <ul className="list-disc list-inside mt-2">
-          <li>Python, Playwright, TypeScript, SQL, Appium</li>
-          <li>Designed for transparency, traceability, and speed</li>
-        </ul>
-      </Section>
-
-      <Section id="closing" title="Education">
-        <p>
-          <strong>Oregon State University</strong>
-          <br />
-          Bachelor of Science in Business Information Systems & Management
-        </p>
-      </Section>
-
-      <footer className="text-center text-sm py-6 text-slate-600">
-        © {new Date().getFullYear()} Jamal Chishti — jamal.chishti@gmail.com
+      {/* ── Footer ── */}
+      <footer className="text-center text-sm py-6 text-gray-400 border-t border-gray-100">
+        © {new Date().getFullYear()} Jamal Chishti
       </footer>
+
     </main>
   );
 }
