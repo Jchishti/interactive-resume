@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './tests',
   timeout: 15000,
   use: {
-    baseURL: 'http://localhost:4173/interactive-resume/',
+    baseURL: 'http://localhost:4173/',
     browserName: 'chromium',
     headless: true,
   },
