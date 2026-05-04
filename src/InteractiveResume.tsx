@@ -66,8 +66,6 @@ const PARCHMENT_MID = 'rgba(240,230,200,0.6)';
 const PARCHMENT_LOW = 'rgba(240,230,200,0.35)';
 const BORDER = 'rgba(139,105,20,0.3)';
 const BORDER_BRIGHT = 'rgba(139,105,20,0.55)';
-const CARD = 'rgba(18, 12, 6, 0.95)';
-
 export default function InteractiveResume() {
   useEffect(() => {
     document.title = 'Jamal Chishti | Quest Log';
