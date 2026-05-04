@@ -32,6 +32,36 @@ export type TimelineEntry = JobEntry | ProjectEntry;
 
 export const timelineEntries: TimelineEntry[] = [
   {
+    id: 'infodump',
+    type: 'job',
+    company: 'The InfoDump LLC',
+    role: 'Founder',
+    period: '2023 – Present',
+    startYear: 2023,
+    endYear: null,
+    logoUrl: 'https://theinfodump.com/favicon.svg',
+    accent: '#50d2be',
+    highlight: 'Founded, built, and shipped a multi-platform app to real users on four platforms',
+    bullets: [
+      'Founded an independent, one-person software studio out of Oregon',
+      'Shipped Linear Timer+ natively on iOS, macOS, iPadOS, and as a Chrome Extension',
+      'Built and maintains theinfodump.com — studio site, product pages, and Android beta pipeline',
+      'Operates on a simple principle: useful, honest, quiet — no tracking, no ads, no dark patterns',
+    ],
+  },
+  {
+    id: 'linear-timer',
+    type: 'project',
+    title: 'Linear Timer+',
+    tagline: 'Built it because I needed it. Shipped it because others did too.',
+    platforms: ['iOS', 'macOS', 'iPadOS', 'Chrome'],
+    story:
+      'I wanted a timer that stayed out of my way — no clutter, no accounts, just a clean visual countdown that lived where I was working. Every timer app I tried either did too much or felt designed by committee. So I built one. Linear Timer+ runs natively on iOS, macOS, and iPad, with a Chrome Extension for people who live in their browser. It\'s in real hands, on real devices, doing exactly what it says it does.',
+    accent: '#6366f1',
+    startYear: 2023,
+    endYear: null,
+  },
+  {
     id: 'powin',
     type: 'job',
     company: 'Powin Energy',
@@ -49,18 +79,6 @@ export const timelineEntries: TimelineEntry[] = [
       'Created Python tooling to manage Docker container configurations and YAML manifests',
       'Bridged QA and DevOps: one person accountable for both what ships and how it runs',
     ],
-  },
-  {
-    id: 'linear-timer',
-    type: 'project',
-    title: 'Linear Timer+',
-    tagline: 'Built it because I needed it. Shipped it because others did too.',
-    platforms: ['iOS', 'macOS', 'iPadOS', 'Chrome'],
-    story:
-      'I wanted a timer that stayed out of my way — no clutter, no accounts, just a clean visual countdown that lived where I was working. Every timer app I tried either did too much or felt designed by committee. So I built one. Linear Timer+ runs natively on iOS, macOS, and iPad, with a Chrome Extension for people who live in their browser. It\'s in real hands, on real devices, doing exactly what it says it does.',
-    accent: '#6366f1',
-    startYear: 2023,
-    endYear: null,
   },
   {
     id: 'siemens',
