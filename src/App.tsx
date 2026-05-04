@@ -32,7 +32,7 @@ function Home() {
 
 export default function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<InteractiveResume />} />
