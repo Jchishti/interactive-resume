@@ -1,6 +1,6 @@
 // File: src/components/OregonMap.tsx
-import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState, useEffect, useCallback } from 'react';
+import { motion, useMotionValue } from 'framer-motion';
 import { mapMarkers } from '../oregonMapData';
 import MapMarker from './MapMarker';
 
@@ -368,10 +368,121 @@ function OregonMapSVG() {
   );
 }
 
-// ─── Main draggable map component ─────────────────────────────────────────────
+// Palette
+const GOLD = '#f0c860';
+const GOLD_DIM = 'rgba(240,200,96,0.5)';
+const DARK_PANEL = 'rgba(12, 8, 4, 0.92)';
+const GOLD_BORDER = 'rgba(139,105,20,0.55)';
+
+const MIN_ZOOM = 0.35;
+const MAX_ZOOM = 2.5;
+
+// ─── Legend panel ──────────────────────────────────────────────────
+
+const legendEntries = [
+  { label: 'The Sundering Sea', real: 'Pacific Ocean' },
+  { label: 'The Great River', real: 'Columbia River' },
+  { label: 'The Greenway Vale', real: 'Willamette Valley' },
+  { label: 'The Grey Peaks', real: 'Cascade Mountains' },
+  { label: 'The Western Ridge', real: 'Coast Range' },
+  { label: 'The Painted Wastes', real: 'Eastern Oregon' },
+  { label: 'The Northern Keep', real: 'Portland' },
+  { label: 'Hildsburgh', real: 'Hillsboro / Beaverton' },
+  { label: "The Scholar's Hold", real: 'Corvallis' },
+  { label: 'Ashwood', real: 'Cottage Grove' },
+  { label: 'The Southern Exile', real: 'Gilbert, AZ' },
+];
+
+function Legend({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="rounded-2xl overflow-hidden shadow-2xl"
+      style={{ background: DARK_PANEL, border: `1px solid ${GOLD_BORDER}`, width: 270, backdropFilter: 'blur(12px)' }}
+    >
+      <div className="h-px" style={{ background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-3">
+          <span style={{ fontFamily: 'Cinzel, serif', fontSize: 13, color: GOLD, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            Map Legend
+          </span>
+          <button onClick={onClose} style={{ color: GOLD_DIM, fontSize: 18, lineHeight: 1 }}>&#x2715;</button>
+        </div>
+        <div className="flex items-center gap-2 mb-3 pb-3" style={{ borderBottom: `1px solid rgba(139,105,20,0.2)` }}>
+          <svg width="16" height="20" viewBox="0 0 32 38" fill="none">
+            <polygon points="16,36 1,14 8,2 24,2 31,14" fill={GOLD} />
+            <polygon points="16,2 8,2 1,14 16,18 31,14 24,2" fill="rgba(255,255,255,0.28)" />
+          </svg>
+          <span style={{ fontSize: 11, color: 'rgba(240,230,200,0.7)', fontStyle: 'italic' }}>Career quest location — click to reveal</span>
+        </div>
+        <div className="space-y-1.5">
+          {legendEntries.map(e => (
+            <div key={e.label} className="flex gap-2 items-baseline">
+              <span style={{ fontSize: 11, color: GOLD_DIM, minWidth: 130, fontFamily: 'Cinzel, serif' }}>{e.label}</span>
+              <span style={{ fontSize: 10, color: 'rgba(240,230,200,0.45)', fontStyle: 'italic' }}>{e.real}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main draggable map component ───────────────────────────────────────────────
 export default function OregonMap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeMarkerId, setActiveMarkerId] = useState<string | null>(null);
+  const [showLegend, setShowLegend] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const applyZoom = useCallback((delta: number) => {
+    setZoom(prev => {
+      const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, prev + delta));
+      const vw = containerRef.current?.clientWidth ?? window.innerWidth;
+      const vh = containerRef.current?.clientHeight ?? window.innerHeight;
+      // Keep center of viewport fixed while zooming
+      const centerMapX = (-x.get() + vw / 2) / prev;
+      const centerMapY = (-y.get() + vh / 2) / prev;
+      const newX = Math.min(0, Math.max(-(MAP_W * newZoom - vw), -(centerMapX * newZoom) + vw / 2));
+      const newY = Math.min(0, Math.max(-(MAP_H * newZoom - vh), -(centerMapY * newZoom) + vh / 2));
+      x.set(newX);
+      y.set(newY);
+      return newZoom;
+    });
+  }, [x, y]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      applyZoom(e.deltaY < 0 ? 0.12 : -0.12);
+    };
+    el.addEventListener('wheel', handler, { passive: false });
+    return () => el.removeEventListener('wheel', handler);
+  }, [applyZoom]);
+
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1440;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
+  const dragConstraints = {
+    left: Math.min(0, -(MAP_W * zoom - vw)),
+    right: 0,
+    top: Math.min(0, -(MAP_H * zoom - vh)),
+    bottom: 0,
+  };
+
+  const btnStyle = {
+    width: 36, height: 36, borderRadius: 8,
+    background: DARK_PANEL,
+    border: `1px solid ${GOLD_BORDER}`,
+    color: GOLD,
+    fontSize: 20, fontWeight: 700,
+    cursor: 'pointer',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    backdropFilter: 'blur(8px)',
+    transition: 'opacity 0.15s',
+  } as const;
 
   return (
     <div
@@ -382,17 +493,14 @@ export default function OregonMap() {
     >
       <motion.div
         drag
-        dragConstraints={containerRef}
-        dragElastic={0.04}
+        dragConstraints={dragConstraints}
+        dragElastic={0.02}
         dragTransition={{ power: 0.28, timeConstant: 260 }}
         whileDrag={{ cursor: 'grabbing' }}
         onDragStart={() => setActiveMarkerId(null)}
-        style={{ width: MAP_W, height: MAP_H, position: 'relative' }}
+        style={{ x, y, width: MAP_W, height: MAP_H, position: 'relative', scale: zoom, originX: 0, originY: 0 }}
       >
-        {/* SVG map */}
         <OregonMapSVG />
-
-        {/* Gem markers */}
         {mapMarkers.map((marker) => (
           <MapMarker
             key={marker.id}
@@ -404,6 +512,28 @@ export default function OregonMap() {
           />
         ))}
       </motion.div>
+
+      {/* Zoom controls */}
+      <div className="absolute" style={{ bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 40, display: 'flex', gap: 8, alignItems: 'center' }}>
+        <button style={btnStyle} onClick={() => applyZoom(0.2)}>+</button>
+        <div style={{ fontSize: 11, color: GOLD_DIM, minWidth: 44, textAlign: 'center', fontFamily: 'Cinzel, serif' }}>
+          {Math.round(zoom * 100)}%
+        </div>
+        <button style={btnStyle} onClick={() => applyZoom(-0.2)}>−</button>
+        <button
+          style={{ ...btnStyle, width: 'auto', padding: '0 10px', fontSize: 11, fontFamily: 'Cinzel, serif', marginLeft: 4 }}
+          onClick={(e) => { e.stopPropagation(); setShowLegend(v => !v); }}
+        >
+          Legend
+        </button>
+      </div>
+
+      {/* Legend */}
+      {showLegend && (
+        <div className="absolute" style={{ bottom: 80, left: 24, zIndex: 40 }} onClick={e => e.stopPropagation()}>
+          <Legend onClose={() => setShowLegend(false)} />
+        </div>
+      )}
     </div>
   );
 }

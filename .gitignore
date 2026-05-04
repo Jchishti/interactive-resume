@@ -28,3 +28,4 @@ playwright-report/
 playwright-reports/
 test-results/
 *.webm
+.vercel

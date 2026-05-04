@@ -58,64 +58,92 @@ const skillGroups = [
   },
 ];
 
+const BG = '#0a0602';
+const GOLD = '#f0c860';
+const GOLD_DIM = 'rgba(240,200,96,0.5)';
+const PARCHMENT = '#f0e6c8';
+const PARCHMENT_MID = 'rgba(240,230,200,0.6)';
+const PARCHMENT_LOW = 'rgba(240,230,200,0.35)';
+const BORDER = 'rgba(139,105,20,0.3)';
+const BORDER_BRIGHT = 'rgba(139,105,20,0.55)';
+const CARD = 'rgba(18, 12, 6, 0.95)';
+
 export default function InteractiveResume() {
   useEffect(() => {
-    document.title = 'Jamal Chishti | Career';
+    document.title = 'Jamal Chishti | Quest Log';
   }, []);
 
   return (
-    <main className="bg-white text-gray-900 font-sans apple-document">
+    <main style={{ background: BG, minHeight: '100vh', color: PARCHMENT, fontFamily: 'sans-serif' }}>
 
       {/* ── Header ── */}
-      <div className="apple-header">
-        <div className="apple-bg-gradient" />
-        <div className="apple-mesh-gradient apple-mesh-1" />
-        <div className="apple-mesh-gradient apple-mesh-2" />
-        <div className="apple-content">
-          <div className="apple-title-container">
-            <h1 className="apple-name">Jamal Chishti</h1>
-            <div className="apple-title-line" />
-          </div>
-          <p className="apple-subtitle">DevOps & QA Engineer</p>
-          <div className="apple-tags">
-            <span className="apple-tag">Toolsmith</span>
-            <span className="apple-tag">System Debugger</span>
-            <span className="apple-tag">Storyteller</span>
-          </div>
+      <div style={{
+        position: 'relative',
+        background: 'linear-gradient(160deg, #16100a 0%, #0a0602 60%, #140e08 100%)',
+        borderBottom: `1px solid ${BORDER}`,
+        minHeight: 280,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '40px 24px',
+        overflow: 'hidden',
+      }}>
+        {/* Decorative corner lines */}
+        <div style={{ position: 'absolute', top: 20, left: 20, width: 40, height: 40, borderTop: `1px solid ${BORDER_BRIGHT}`, borderLeft: `1px solid ${BORDER_BRIGHT}` }} />
+        <div style={{ position: 'absolute', top: 20, right: 20, width: 40, height: 40, borderTop: `1px solid ${BORDER_BRIGHT}`, borderRight: `1px solid ${BORDER_BRIGHT}` }} />
+        <div style={{ position: 'absolute', bottom: 20, left: 20, width: 40, height: 40, borderBottom: `1px solid ${BORDER_BRIGHT}`, borderLeft: `1px solid ${BORDER_BRIGHT}` }} />
+        <div style={{ position: 'absolute', bottom: 20, right: 20, width: 40, height: 40, borderBottom: `1px solid ${BORDER_BRIGHT}`, borderRight: `1px solid ${BORDER_BRIGHT}` }} />
+        <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '2.8rem', fontWeight: 900, color: GOLD, textShadow: `0 0 40px rgba(240,200,96,0.3)`, letterSpacing: '0.05em', margin: 0 }}>
+          Jamal Chishti
+        </h1>
+        <div style={{ width: 80, height: 1, background: `linear-gradient(to right, transparent, ${GOLD_DIM}, transparent)`, margin: '10px auto' }} />
+        <div style={{ fontFamily: 'Cinzel, serif', fontSize: '0.9rem', color: GOLD_DIM, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 16 }}>
+          DevOps · QA Engineer · Builder
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {['Toolsmith', 'System Debugger', 'Storyteller'].map(tag => (
+            <span key={tag} style={{ padding: '4px 14px', border: `1px solid ${BORDER_BRIGHT}`, borderRadius: 20, fontSize: '0.75rem', color: PARCHMENT_MID, background: 'rgba(139,105,20,0.08)', fontFamily: 'Cinzel, serif', letterSpacing: '0.05em' }}>
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
 
       {/* ── Intro ── */}
-      <div className="max-w-2xl mx-auto px-6 pt-14 pb-2 text-center">
-        <div className="text-gray-500 text-base leading-relaxed">
+      <div style={{ maxWidth: 672, margin: '0 auto', padding: '48px 24px 8px', textAlign: 'center' }}>
+        <div style={{ color: PARCHMENT_LOW, fontSize: '0.95rem', lineHeight: 1.7, fontStyle: 'italic' }}>
           Sixteen years of building things, breaking things on purpose, and making sure the right
           things ship. Click any node on the timeline to dig in.
         </div>
       </div>
 
       {/* ── Timeline ── */}
-      <div className="px-6">
+      <div style={{ padding: '0 24px' }}>
         <CareerTimeline />
       </div>
 
       {/* ── Skills ── */}
-      <div className="border-t border-gray-100 mt-4">
-        <div className="max-w-2xl mx-auto px-6 py-12">
-          <div className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
-            Tools of the trade
+      <div style={{ borderTop: `1px solid ${BORDER}`, marginTop: 16 }}>
+        <div style={{ maxWidth: 672, margin: '0 auto', padding: '48px 24px' }}>
+          <div style={{ fontFamily: 'Cinzel, serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: GOLD_DIM, marginBottom: 24 }}>
+            Tools of the Trade
           </div>
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {skillGroups.map((group) => (
-              <div key={group.label} className="flex gap-3 flex-wrap items-baseline">
-                <span className="text-xs font-semibold text-gray-400 w-24 shrink-0">
+              <div key={group.label} style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
+                <span style={{ fontSize: 11, fontWeight: 600, color: GOLD_DIM, width: 96, flexShrink: 0, fontFamily: 'Cinzel, serif' }}>
                   {group.label}
                 </span>
-                <div className="flex gap-1.5 flex-wrap">
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="text-xs px-2.5 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-600"
-                    >
+                    <span key={skill} style={{
+                      fontSize: 11, padding: '4px 10px', borderRadius: 20,
+                      background: 'rgba(139,105,20,0.08)',
+                      border: `1px solid ${BORDER}`,
+                      color: PARCHMENT_MID,
+                    }}>
                       {skill}
                     </span>
                   ))}
@@ -123,10 +151,9 @@ export default function InteractiveResume() {
               </div>
             ))}
           </div>
-
-          <div className="mt-10 pt-6 border-t border-gray-100">
-            <div className="text-sm text-gray-500">
-              <strong className="text-gray-700">Oregon State University</strong>
+          <div style={{ marginTop: 32, paddingTop: 24, borderTop: `1px solid ${BORDER}` }}>
+            <div style={{ fontSize: 13, color: PARCHMENT_LOW }}>
+              <span style={{ color: PARCHMENT_MID, fontWeight: 600 }}>Oregon State University</span>
               {' — '}BS in Business Information Systems & Management
             </div>
           </div>
@@ -134,25 +161,23 @@ export default function InteractiveResume() {
       </div>
 
       {/* ── Rejections ── */}
-      <div className="border-t border-gray-100">
-        <div className="max-w-2xl mx-auto px-6 py-12">
-          <div className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">
-            Also Interviewed At
+      <div style={{ borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 672, margin: '0 auto', padding: '48px 24px' }}>
+          <div style={{ fontFamily: 'Cinzel, serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: GOLD_DIM, marginBottom: 4 }}>
+            Dungeons Not Cleared
           </div>
-          <div className="text-xs text-gray-300 mb-8">Did not get the job.</div>
-          <div className="space-y-5">
+          <div style={{ fontSize: 11, color: 'rgba(240,230,200,0.2)', marginBottom: 28, fontStyle: 'italic' }}>Did not get the job.</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             {rejections.map((r) => (
               <div key={r.company}>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-gray-400 line-through decoration-gray-300">
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                  <span style={{ fontSize: 13, color: PARCHMENT_LOW, textDecoration: 'line-through', textDecorationColor: 'rgba(240,230,200,0.2)' }}>
                     {r.company}
                   </span>
-                  {r.era && (
-                    <span className="text-xs text-gray-300 italic">{r.era}</span>
-                  )}
+                  {r.era && <span style={{ fontSize: 11, color: 'rgba(240,230,200,0.2)', fontStyle: 'italic' }}>{r.era}</span>}
                 </div>
                 {r.note && (
-                  <div className="text-xs text-gray-400 mt-0.5 leading-relaxed max-w-md">
+                  <div style={{ fontSize: 11, color: 'rgba(240,230,200,0.32)', marginTop: 3, lineHeight: 1.6, maxWidth: 480 }}>
                     {r.note}
                   </div>
                 )}
@@ -163,7 +188,7 @@ export default function InteractiveResume() {
       </div>
 
       {/* ── Footer ── */}
-      <footer className="text-center text-sm py-6 text-gray-400 border-t border-gray-100">
+      <footer style={{ textAlign: 'center', fontSize: 12, padding: '20px 0 32px', color: 'rgba(240,230,200,0.2)', borderTop: `1px solid ${BORDER}`, fontFamily: 'Cinzel, serif', letterSpacing: '0.1em' }}>
         © {new Date().getFullYear()} Jamal Chishti
       </footer>
 

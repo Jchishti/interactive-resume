@@ -70,12 +70,13 @@ function Chevron({ isOpen }: { isOpen: boolean }) {
 
 function DividerNode({ entry }: { entry: SectionDivider }) {
   return (
-    <div className="relative pl-20 mt-4 mb-8">
+    <div className="relative pl-16 mt-8 mb-6">
       <div className="flex items-center gap-3">
-        <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-300 whitespace-nowrap">
+        <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(139,105,20,0.6))' }} />
+        <span style={{ fontFamily: 'Cinzel, serif', fontSize: 10, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(139,105,20,0.7)', whiteSpace: 'nowrap' }}>
           {entry.label}
         </span>
-        <div className="flex-1 h-px bg-gray-100" />
+        <div className="flex-1 h-px" style={{ background: 'linear-gradient(to left, transparent, rgba(139,105,20,0.6))' }} />
       </div>
     </div>
   );
@@ -93,18 +94,20 @@ function JobNode({
   onToggle: () => void;
 }) {
   const dim = entry.dim ?? false;
-  // dim nodes: 40px circle (w-10), left-3 (12px) → center at 32px ✓, content at pl-16 (64px)
-  // full nodes: 48px circle (w-12), left-2 (8px)  → center at 32px ✓, content at pl-20 (80px)
+  const nodeBg = 'rgba(18, 12, 6, 0.95)';
+  const inactiveBorder = dim ? 'rgba(139,105,20,0.2)' : 'rgba(139,105,20,0.4)';
   return (
     <div className={`relative ${dim ? 'pl-16 mb-8' : 'pl-20 mb-12'}`}>
       <motion.button
         onClick={onToggle}
-        className={`absolute ${dim ? 'left-3 top-1 w-10 h-10' : 'left-2 top-0 w-12 h-12'} rounded-full bg-white flex items-center justify-center focus:outline-none focus-visible:ring-2 ${dim ? '' : 'shadow-sm'}`}
+        className={`absolute ${dim ? 'left-3 top-1 w-10 h-10' : 'left-2 top-0 w-12 h-12'} rounded-full flex items-center justify-center focus:outline-none`}
         style={{
-          border: `2px solid ${isActive ? entry.accent : '#e5e7eb'}`,
-          opacity: dim ? 0.85 : 1,
+          background: nodeBg,
+          border: `2px solid ${isActive ? entry.accent : inactiveBorder}`,
+          opacity: dim ? 0.75 : 1,
+          boxShadow: isActive ? `0 0 12px ${entry.accent}50` : 'none',
         }}
-        animate={{ borderColor: isActive ? entry.accent : '#e5e7eb' }}
+        animate={{ borderColor: isActive ? entry.accent : inactiveBorder }}
         transition={{ duration: 0.2 }}
         whileHover={{ scale: dim ? 1.04 : 1.06 }}
         whileTap={{ scale: 0.97 }}
@@ -117,15 +120,26 @@ function JobNode({
       {/* Clickable header */}
       <button onClick={onToggle} className="w-full text-left group">
         <div className="flex items-center gap-2 flex-wrap leading-none">
-          <span className={`${dim ? 'text-sm text-gray-500' : 'text-[17px] text-gray-900'} font-semibold group-hover:opacity-70 transition-opacity`}>
+          <span
+            className="font-semibold group-hover:opacity-70 transition-opacity"
+            style={{
+              fontFamily: dim ? 'inherit' : 'Cinzel, serif',
+              fontSize: dim ? 14 : 16,
+              color: dim ? 'rgba(240,230,200,0.5)' : '#f0e6c8',
+            }}
+          >
             {entry.company}
           </span>
-          <span className="text-xs font-mono text-gray-300">{entry.period}</span>
-          <span className={dim ? 'text-gray-300' : 'text-gray-400'}>
+          <span style={{ fontSize: 11, fontFamily: 'monospace', color: dim ? 'rgba(240,230,200,0.25)' : 'rgba(240,230,200,0.35)' }}>
+            {entry.period}
+          </span>
+          <span style={{ color: dim ? 'rgba(240,230,200,0.25)' : 'rgba(240,230,200,0.4)' }}>
             <Chevron isOpen={isActive} />
           </span>
         </div>
-        <div className={`${dim ? 'text-xs text-gray-400' : 'text-sm text-gray-500'} mt-1`}>{entry.role}</div>
+        <div style={{ fontSize: dim ? 11 : 13, color: dim ? 'rgba(240,230,200,0.35)' : 'rgba(240,230,200,0.55)', marginTop: 4 }}>
+          {entry.role}
+        </div>
       </button>
 
       {/* Expandable detail panel */}
@@ -139,29 +153,29 @@ function JobNode({
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="mt-4 rounded-2xl border border-gray-100 bg-white shadow-md overflow-hidden">
-              {/* Accent stripe */}
-              <div className="h-1" style={{ background: entry.accent }} />
+            <div
+              className="mt-4 rounded-2xl overflow-hidden"
+              style={{ background: 'rgba(15, 10, 4, 0.97)', border: `1px solid ${entry.accent}40`, boxShadow: `0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px ${entry.accent}10` }}
+            >
+              <div className="h-0.5" style={{ background: `linear-gradient(to right, ${entry.accent}, transparent)` }} />
               <div className="p-5">
                 {entry.note && (
-                  <div className="text-xs text-gray-400 italic mb-3">{entry.note}</div>
+                  <div style={{ fontSize: 11, color: 'rgba(240,230,200,0.35)', fontStyle: 'italic', marginBottom: 10 }}>{entry.note}</div>
                 )}
                 {entry.highlight && (
                   <div
-                    className="mb-4 flex gap-2 items-start text-sm font-medium rounded-xl px-4 py-2.5"
-                    style={{ background: `${entry.accent}18` }}
+                    className="mb-4 flex gap-2 items-start rounded-xl px-4 py-2.5"
+                    style={{ background: `${entry.accent}14`, border: `1px solid ${entry.accent}25` }}
                   >
-                    <span className="shrink-0" style={{ color: entry.accent }}>
-                      ◆
-                    </span>
-                    <span style={{ color: entry.accent }}>{entry.highlight}</span>
+                    <span className="shrink-0" style={{ color: entry.accent, fontSize: 12 }}>◆</span>
+                    <span style={{ color: entry.accent, fontSize: 13, fontWeight: 600 }}>{entry.highlight}</span>
                   </div>
                 )}
                 <ul className="space-y-2.5">
                   {entry.bullets.map((bullet, i) => (
-                    <li key={i} className="flex gap-2.5 text-sm leading-relaxed">
-                      <span className="text-gray-300 shrink-0 mt-0.5">—</span>
-                      <span className="text-gray-600">{bullet}</span>
+                    <li key={i} className="flex gap-2.5 leading-relaxed" style={{ fontSize: 13 }}>
+                      <span style={{ color: `${entry.accent}60`, flexShrink: 0, marginTop: 2 }}>—</span>
+                      <span style={{ color: 'rgba(240,230,200,0.7)' }}>{bullet}</span>
                     </li>
                   ))}
                 </ul>
@@ -241,7 +255,7 @@ function ProjectNode({
             <Chevron isOpen={isActive} />
           </span>
         </div>
-        <div className="text-xs text-gray-400 italic mt-1">{entry.tagline}</div>
+        <div style={{ fontSize: 11, color: 'rgba(240,230,200,0.4)', fontStyle: 'italic', marginTop: 4 }}>{entry.tagline}</div>
       </button>
 
       {/* Expandable story panel */}
@@ -256,17 +270,15 @@ function ProjectNode({
             style={{ overflow: 'hidden' }}
           >
             <div
-              className="mt-4 rounded-2xl border overflow-hidden bg-white"
-              style={{ borderColor: `${entry.accent}30` }}
+              className="mt-4 rounded-2xl overflow-hidden"
+              style={{ background: 'rgba(15, 10, 4, 0.97)', border: `1px solid ${entry.accent}40`, boxShadow: `0 4px 24px rgba(0,0,0,0.6)` }}
             >
               <div
                 className="h-0.5"
-                style={{
-                  background: `linear-gradient(to right, ${entry.accent}, transparent)`,
-                }}
+                style={{ background: `linear-gradient(to right, ${entry.accent}, transparent)` }}
               />
               <div className="p-5">
-                <div className="text-sm text-gray-600 leading-relaxed">{entry.story}</div>
+                <div style={{ fontSize: 13, color: 'rgba(240,230,200,0.7)', lineHeight: 1.7 }}>{entry.story}</div>
                 {entry.links && entry.links.length > 0 && (
                   <div className="mt-4 flex gap-2 flex-wrap">
                     {entry.links.map((link) => (
@@ -313,7 +325,7 @@ export default function CareerTimeline() {
           className="absolute left-8 top-0 bottom-0 w-px pointer-events-none"
           style={{
             background:
-              'linear-gradient(to bottom, transparent 0%, #e5e7eb 6%, #e5e7eb 94%, transparent 100%)',
+              'linear-gradient(to bottom, transparent 0%, rgba(139,105,20,0.45) 6%, rgba(139,105,20,0.45) 94%, transparent 100%)',
           }}
         />
 
